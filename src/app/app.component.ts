@@ -13,14 +13,17 @@ import { PokemonService } from './pokemon.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'angular-pokedex-app';
-  private readonly pokemonService = inject(PokemonService);
-  name = signal('Pikachu');
-  life = signal(21);
-  doubleCounter = computed(() => this.life() * 2);
-  imageSrc = signal('https://assets.pokemon.com/assets/cms2/img/pokedex/detail/025.png');
-
-  pokemonList = signal(this.pokemonService.getPokemonList());
+  readonly pokemonService = inject(PokemonService);
+  readonly pokemonList = signal(this.pokemonService.getPokemonList());
+  readonly searchTerm = signal('');
+  readonly pokemonListFiltered = computed(() => {
+    return this.pokemonList().filter((pokemon) => 
+     pokemon.name
+       .toLowerCase()
+       .includes(this.searchTerm().trim().toLowerCase())
+   );
+  });
+  
   
   size(pokemon: Pokemon){
     if (pokemon.life <= 15) {
@@ -33,12 +36,7 @@ export class AppComponent {
     return 'Moyen';
   }
 
-  constructor() {
-    effect(() => {
-      console.log('Le compteur a été mis à jour :', this.life());
-
-    });
-  }
+  constructor() {}
 
   incrementLife(pokemon: Pokemon){
     pokemon.life = pokemon.life +1;
@@ -47,10 +45,4 @@ export class AppComponent {
   decrementLife(pokemon: Pokemon){
     pokemon.life = pokemon.life - 1;
   }
-
-  reset() {
-    this.life.set(0);
-  }
-
-
 }
