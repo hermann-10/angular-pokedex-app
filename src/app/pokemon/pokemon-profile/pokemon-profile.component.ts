@@ -1,8 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PokemonService } from '../../pokemon.service';
 import {DatePipe} from '@angular/common';
+import { Subscription } from 'rxjs';
+import { Pokemon } from '../../pokemon.model';
 
 @Component({
   selector: 'app-pokemon-profile',
@@ -11,12 +13,42 @@ import {DatePipe} from '@angular/common';
   templateUrl: './pokemon-profile.component.html',
   styles: ``
 })
-export class PokemonProfileComponent {
+export class PokemonProfileComponent implements OnInit, OnDestroy {
 
   readonly route = inject(ActivatedRoute);
   readonly router = inject(Router);
+  routeSubscription: Subscription | null = null;
 
-  readonly pokemonId = Number(this.route.snapshot.paramMap.get('id'));
   readonly pokemonService = inject(PokemonService);
-  readonly pokemon = signal(this.pokemonService.getPokemonById(this.pokemonId)).asReadonly();
+
+  readonly pokemonId = signal(Number(this.route.snapshot.paramMap.get('id')));
+
+  pokemon = signal(this.pokemonService.getPokemonById(this.pokemonId()));
+
+
+
+	ngOnInit(): void {
+	  	this.routeSubscription = this.route.params.subscribe(params => {
+       
+        const id = Number(params['id']);
+        this.pokemonId.set(id); // Utilisation correcte du signal
+	  	});
+	  }
+  
+  next() {
+    let nextId = this.pokemonId() || 0;
+    console.log('nextId', nextId)
+		nextId++;
+    console.log('nextId++:', nextId)
+    
+    this.pokemon.set(this.pokemonService.getPokemonById(nextId)); // Mettre à jour le Pokémon
+		this.router.navigate(['pokemons/' + nextId])
+	}
+
+  ngOnDestroy(): void {
+		this.routeSubscription?.unsubscribe();
+	}
+
 }
+
+
