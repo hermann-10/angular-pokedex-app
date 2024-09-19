@@ -2,7 +2,7 @@ import { Component, effect, model, signal, computed, inject } from '@angular/cor
 import { Pokemon } from './../../pokemon.model';
 import { PokemonBorderDirective } from './../../pokemon-border.directive';
 import { DatePipe } from '@angular/common';
-import { PokemonService } from './../../pokemon.service';
+import { PokemonService } from '../../core/services/pokemon.service';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -52,12 +52,4 @@ export class PokemonListComponent {
   }
 
   constructor() {}
-
-  // incrementLife(pokemon: Pokemon){
-  //   pokemon.life = pokemon.life +1;
-  // }
-
-  // decrementLife(pokemon: Pokemon){
-  //   pokemon.life = pokemon.life - 1;
-  // }
 }

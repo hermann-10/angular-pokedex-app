@@ -1,7 +1,7 @@
 import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { DatePipe, JsonPipe } from '@angular/common';
-import { PokemonService } from '../../pokemon.service';
+import { PokemonService } from '../../core/services/pokemon.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { getPokemonColor, Pokemon, POKEMON_RULES } from '../../pokemon.model';
 import { toSignal } from '@angular/core/rxjs-interop';

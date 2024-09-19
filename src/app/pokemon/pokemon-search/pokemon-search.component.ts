@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core'; 
 import { Router } from '@angular/router';
-import { PokemonService } from './../../pokemon.service';
+import { PokemonService } from '../../core/services/pokemon.service';
 import { 
   debounceTime, 
   distinctUntilChanged, 

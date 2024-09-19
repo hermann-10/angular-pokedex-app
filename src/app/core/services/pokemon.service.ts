@@ -1,5 +1,5 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
-import { Pokemon, PokemonList } from './pokemon.model';
+import { Pokemon, PokemonList } from '../../pokemon.model';
 //import { POKEMON_LIST } from './pokemon-list.fake';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';

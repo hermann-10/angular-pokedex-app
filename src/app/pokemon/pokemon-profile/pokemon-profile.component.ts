@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { PokemonService } from '../../pokemon.service';
+import { PokemonService } from '../../core/services/pokemon.service';
 import {DatePipe} from '@angular/common';
 import { catchError, map, of, Subscription } from 'rxjs';
 import { Pokemon } from '../../pokemon.model';
