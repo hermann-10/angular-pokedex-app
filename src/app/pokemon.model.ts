@@ -32,3 +32,17 @@ export interface Pokemon {
         return '#303030';
     }
   }
+
+  export const POKEMON_RULES = {
+    NAME_PATTERN: /^[a-zA-Zéè]+$/,
+    MAX_NAME: 20,
+    MIN_NAME: 3,
+    MAX_LIFE: 30,
+    HIGH_LIFE: 25,
+    LOW_LIFE: 15,
+    MIN_LIFE: 10,
+    MAX_DAMAGE: 10,
+    MIN_DAMAGE: 1,
+    MAX_TYPES: 3,
+    MIN_TYPES: 1,
+  } as const;

@@ -8,8 +8,15 @@
 
 <div class="container">
     <div class="row">
+      @if(loading()) {
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        } 
      @for(pokemon of pokemonListFiltered(); track pokemon.id) {
-     <div class="col-md-4">
+     <div class="col-md-4 pokemon-card" [routerLink]="['/pokemons', pokemon.id]">
       <div class="card mb-3" appPokemonBorder [pokemonType]="pokemon.types[0]">
        <div class="row g-0">
         <div 
@@ -28,25 +35,8 @@
            Taille : {{ size(pokemon) }}
           </h6>
           <p class="card-text">Points de vie : {{ pokemon.life }}</p>
+          <p class="card-text">Dégâts : {{ pokemon.damage }}</p>
           <p class="card-text">Créé le {{ pokemon.created | date : "dd/MM/yyyy" }}</p> 
-
-          <div class="btn-group btn-group-sm" role="group">
-           <button
-            (click)="incrementLife(pokemon)"
-            class="btn btn-outline-secondary"
-            [disabled]="pokemon.life >= 30"
-           >
-            +
-           </button>
-           <button
-            (click)="decrementLife(pokemon)"
-            class="btn btn-outline-secondary"
-            [disabled]="pokemon.life <= 10"
-           >
-            -
-           </button><div><p class="card-text"><a class="text small text-muted" [routerLink]="['/pokemons', pokemon.id]">VOIR</a></p></div>
-
-          </div>
          </div>
         </div>
        </div>

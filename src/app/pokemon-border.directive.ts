@@ -8,7 +8,7 @@ import { getPokemonColor } from './pokemon.model';
 export class PokemonBorderDirective {
 
   pokemonType = input.required<string>();
-  private initialColor!: string;
+  private initialColor: string;
 
   constructor(private el: ElementRef) { 
     this.initialColor = this.el.nativeElement.style.borderColor;

@@ -1,31 +1,99 @@
-<div class="container mt-5"><div class="card"><div class="row g-0"><div class="col-md-4 d-flex align-items-center justify-content-center bg-light"
-    ><img
-        [src]="pokemon().picture"class="img-fluid rounded-start"
-        [alt]="pokemon().name"
-      /></div><div class="col-md-8"><div class="card-body"><h2 class="card-title">{{ pokemon().name }}</h2><table class="table"><tbody><tr><th scope="row">Points de vie</th><td>{{ pokemon().life }}</td></tr><tr><th scope="row">Dégâts</th><td>{{ pokemon().damage }}</td></tr><tr><th scope="row">Types</th><td>
-                @for(type of pokemon().types; track type) {
-                <span class="badge rounded-pill bg-secondary me-1">{{
-                  type
-                }}</span>
-                }
-              </td></tr><tr><th scope="row">Date de création</th><td>{{ pokemon().created | date : "dd/MM/yyyy" }}</td></tr></tbody></table><div class="d-flex justify-content-between mt-4"><button class="btn btn-link text-decoration-none text-warning"routerLink="/pokemons"
-          >
-            RETOUR À LA LISTE
-          </button><button class="btn btn-link text-decoration-none text-warning" [routerLink]="['/pokemons-edit', pokemon().id]">
-            ÉDITER
+@if(pokemon(); as pokemon) {
+  <div class="container mt-5"><div class="card"><div class="row g-0">
+    <div class="col-md-4 d-flex align-items-center justify-content-center bg-light">
+     <img
+          [src]="pokemon.picture"class="img-fluid rounded-start"
+          [alt]="pokemon.name"
+        /> 
+      </div>
+      
+      <div class="col-md-8"><div class="card-body"><h2 class="card-title">
+        {{ pokemon.name }} 
+  
+      </h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <!-- <th scope="row">Points de vie</th><td>{{ pokemon().life }}</td> -->
+          </tr>
+          <tr>
+            <th scope="row">Dégâts</th>
+            <td>{{ pokemon.damage }}</td> 
+          </tr>
+          <tr>
+            <th scope="row">Types</th>
+                 <td>
+                  @for(type of pokemon.types; track type) {
+                  <span class="badge rounded-pill bg-secondary me-1">{{
+                    type
+                  }}</span>
+                  }
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Date de création</th><td>{{ pokemon.created | date : "dd/MM/yyyy" }}</td>
+              </tr> 
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-link text-decoration-none text-warning"routerLink="/pokemons"
+            >
+              RETOUR À LA LISTE
+            </button>
+            <button class="btn btn-link text-decoration-none text-warning" [routerLink]="['/pokemons-edit', pokemon.id]">
+              ÉDITER
+            </button> 
+            <button class="btn btn-link text-decoration-none text-warning" (click)="deletePokemon(pokemon.id)">
+              SUPPRIMER
+            </button>
+            <!-- <button class="btn btn-link text-decoration-none text-warning" (click)="prev()" [disabled]="!isNavigatePrev">
+              PRÉCEDENT 
+            </button>
+            <button class="btn btn-link text-decoration-none text-warning" (click)="next()" [disabled]="!isNavigateNext">
+              SUIVANT 
+            </button> --> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  } 
+  
+ <!-- @else {
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  }  -->
+<!-- Plutôt que @else, on utilise le Signal loading() -->
+@if(loading()){ 
+  <!-- On affiche le loading -->
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  }
 
-          
-          </button><button class="btn btn-link text-decoration-none text-warning">
-            SUPPRIMER
-          </button>
-          <button class="btn btn-link text-decoration-none text-warning" (click)="prev()" [disabled]="!isNavigatePrev">
-            PRÉCEDENT 
-          </button>
-          <button class="btn btn-link text-decoration-none text-warning" (click)="next()" [disabled]="!isNavigateNext">
-            SUIVANT 
-          </button>
-          
-        
-        </div></div></div></div></div>
-</div>
+  @if(error()) {
+    <div class="container text-center mt-5">
+      <div class="card">
+        <div class="card-body">
+          <img
+            src="http://assets.pokemon.com/assets/cms2/img/pokedex/full/035.png"
+            class="img-fluid mx-auto d-block"
+            alt="Rondoudou"
+          />
+          <h2 class="mt-4">Hey, ce Pokémon n'existe pas !</h2>
+          <a routerLink="/pokemons" class="btn btn-link mt-3 text-decoration-none">
+            RETOURNER À L'ACCUEIL</a
+          >
+        </div>
+      </div>
+    </div>
+    }
+
+
 

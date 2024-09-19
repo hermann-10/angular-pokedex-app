@@ -1,0 +1,26 @@
+<div class="container">
+  <label for="search" class="form-label">Rechercher un Pokémon</label>
+  <input
+    id="search"
+    type="text"
+    class="form-control"
+    placeholder="Rechercher un pokémon"
+    #searchField
+    [value]="searchTerm()"
+    (input)="searchTerm.set(searchField.value)"
+  />
+  <ul class="list-group">
+  <!-- @for(let pokemon of suggestedPokemonList(); track pokemon.id) {
+    <li class="list-group-item" (click)="goToPokemon(pokemon.id)">
+      {{ pokemon.name }}
+    </li>
+  } -->
+
+  <li *ngFor="let pokemon of suggestedPokemonList()">
+    {{ pokemon.name }}
+  </li>
+  <li>
+    test
+  </li>
+  </ul>
+</div>
